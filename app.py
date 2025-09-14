@@ -7,5 +7,7 @@ def run_app():
     st.title("Fibromyalgia Predicitons")
     st.subheader("Answer a few questions to find out if you have fibromyalgia")
     st.image(IMAGE_ADDRESS, caption = "Fibromyalgia")
+    gender = st.radio("select gender", ("male", "female"))
+    gender_feature = 0 if gender == "male" else 1
 
 run_app()
