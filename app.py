@@ -9,6 +9,6 @@ def run_app():
     st.image(IMAGE_ADDRESS, caption = "Fibromyalgia")
     gender = st.radio("select gender", ("male", "female"))
     gender_feature = 0 if gender == "male" else 1
-    age = st.number_input("enter age", min_val = 0, max_val = 120, value = 30)
+    age = st.number_input("enter age", min_value = 0, max_value = 120, value = 30)
 
 run_app()
