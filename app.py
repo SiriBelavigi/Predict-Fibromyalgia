@@ -28,7 +28,7 @@ def run_app():
     SPS_total = st.number_input("enter SPS score", min_value = 0, value = 50)
     SPSa_total = st.number_input("enter SPSa score", min_value = 0, value = 50)
     SPSb_total = st.number_input("enter SPSb score", min_value = 0, value = 50)
-    features = np.array([[gender_feature, age, CSI_total, SAT_total, SPS_total, SPSa_total, SPSb_total]])
+    features = np.array([[age, CSI_total, SAT_total, SPS_total, SPSa_total, SPSb_total]])
     scaled_features = scaler.transform(features)
     final_features = np.hstack([[[gender_feature]],scaled_features])
     if st.button("predict"):
