@@ -46,8 +46,8 @@ import numpy as np
 import pickle 
 from sklearn.preprocessing import StandardScaler
 
-# 🔹 NEW: page setup and CSS styling
-st.set_page_config(page_title="Fibromyalgia Predictions", layout="centered")
+# 🔹 NEW: Page setup and CSS styling
+st.set_page_config(page_title="Fibromyalgia Predictions", layout="wide")
 
 st.markdown("""
     <style>
@@ -69,10 +69,16 @@ st.markdown("""
     }
     .card {
         background-color: rgba(255,255,255,0.05);
-        padding: 20px;
+        padding: 24px;
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+    }
+    .center-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -97,13 +103,20 @@ scaler = load_scaler("standard_scaler")
 # -------------------------------------------------------------------------
 
 def run_app():
-    # 🔹 NEW: Create a two-column layout for instructions and image
-    col1, col2 = st.columns([1.4, 1])
-    with col1:
+    # 🔹 NEW: Use container for a full-width layout
+    with st.container():
         st.title("🩺 Fibromyalgia Predictions")
         st.subheader("Answer a few questions to find out if you have fibromyalgia")
 
-        # 🔹 NEW: Instructions card
+        # 🔹 NEW: Add image spanning container width
+        st.image(
+            IMAGE_ADDRESS,
+            caption="Fibromyalgia",
+            use_container_width=True
+        )
+
+    # 🔹 NEW: Add instructions container
+    with st.container():
         with st.expander("📋 Instructions", expanded=True):
             st.markdown("""
             **Before using this tool:**
@@ -111,54 +124,47 @@ def run_app():
             2. Fill out the survey and note your **CSI**, **SAT**, **SPS**, **SPSa**, and **SPSb** scores.
             3. Enter those scores below to get your prediction.
             4. You can learn more at:
-                - [Fibromyalgia Info - WHO](https://www.who.int)
-                - [Patient Resources](https://www.arthritis.org/diseases/fibromyalgia)
+               - [Fibromyalgia Info - WHO](https://www.who.int)
+               - [Patient Resources](https://www.arthritis.org/diseases/fibromyalgia)
             """)
-    with col2:
-        # keep image to the right
-        st.image(IMAGE_ADDRESS, caption="Fibromyalgia", use_column_width=True)
 
-    # 🔹 NEW: Add a neat divider
     st.markdown("<hr style='border:1px solid #444;'>", unsafe_allow_html=True)
 
-    # 🔹 NEW: Input card for cleaner grouping
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    # 🔹 NEW: Input section in card style
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-    gender = st.radio("Select gender", ("male", "female"))
-    gender_feature = 0 if gender == "male" else 1
+        gender = st.radio("Select gender", ("male", "female"))
+        gender_feature = 0 if gender == "male" else 1
 
-    age = st.number_input("Enter age", min_value=0, max_value=120, value=30)
-    CSI_total = st.number_input("Enter CSI score", min_value=0, value=50)
-    SAT_total = st.number_input("Enter SAT score", min_value=0, value=50)
-    SPS_total = st.number_input("Enter SPS score", min_value=0, value=50)
-    SPSa_total = st.number_input("Enter SPSa score", min_value=0, value=50)
-    SPSb_total = st.number_input("Enter SPSb score", min_value=0, value=50)
+        age = st.number_input("Enter age", min_value=0, max_value=120, value=30)
+        CSI_total = st.number_input("Enter CSI score", min_value=0, value=50)
+        SAT_total = st.number_input("Enter SAT score", min_value=0, value=50)
+        SPS_total = st.number_input("Enter SPS score", min_value=0, value=50)
+        SPSa_total = st.number_input("Enter SPSa score", min_value=0, value=50)
+        SPSb_total = st.number_input("Enter SPSb score", min_value=0, value=50)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Original feature scaling and prediction logic (unchanged)
     features = np.array([[age, CSI_total, SAT_total, SPS_total, SPSa_total, SPSb_total]])
     scaled_features = scaler.transform(features)
     final_features = np.hstack([[[gender_feature]], scaled_features])
 
-    # 🔹 NEW: Wrap button in card for spacing
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    # 🔹 NEW: Predict button in separate card
+    with st.container():
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        if st.button("Predict"):
+            model_predict = classification_model.predict(final_features)
+            result = model_predict[0]
+            if result == 1:
+                class_name = "Fibromyalgia detected"
+            else:
+                class_name = "Under control"
+            st.success(f"✅ **Prediction Result:** {class_name}")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    if st.button("Predict"):
-        model_predict = classification_model.predict(final_features)
-        result = model_predict[0]
-        if result == 1:
-            class_name = "Fibromyalgia detected"
-        else:
-            class_name = "Under control"
-
-        # 🔹 NEW: More expressive result message
-        st.success(f"✅ **Prediction Result:** {class_name}")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# run the app
+# Run app
 run_app()
 
-#         st.success(f"predicition: {class_name}")
 
-# run_app()
