@@ -133,7 +133,7 @@ def load_scaler(scalerpath):
 
 scaler = load_scaler("standard_scaler")
 
-IMAGE_ADDRESS = "https://prdmspst.blob.core.windows.net/images/articles/swimming-walking-effectively-reduce-pain-for-fibromyalgia-e0c8628b-f81c-4688-baeb-1071f6e11065-thumbnail.jpg"
+IMAGE_ADDRESS = "https://coloradopaincare.com/wp-content/uploads/fibromyalgia-colorado-pain-care-moghim-krutsch-spine.jpg"
 
 # ---------- MAIN APP ----------
 def run_app():
@@ -194,8 +194,16 @@ def run_app():
     # ---------- Instructions Section (NEW) ----------
     with st.expander("📘 Instructions & Important Links", expanded=True):
         st.markdown("""
+        THIS IS A TEST TO DETERMINE WHETHER YOU HAVE FIBROMYALGIA OR NOT!!
+        Symptoms: 
+        - Muscle pain or tenderness
+        - Fatigue
+        - Face and jaw pain (temporomandibular joint disorders)
+        - Headaches and migraines
+        - Digestive problems, including diarrhea and constipation
+        - Bladder control issues
         Follow these steps before you begin:
-        1. **Visit the [Survey Page](https://example.com/survey)** — Fill out the survey to get your CSI, SAT, SPS, SPSa, and SPSb scores.  
+        1. **Visit the [Survey Page](https://example.com/survey)** — Fill out the surveys to get your CSI, SAT, SPS, SPSa, and SPSb scores. (These tests are for scoring your senstivity and pain levels)  
         2. **Return here** and enter those scores below.
         3. Click on **Predict** to know whether you may be under control or at risk for Fibromyalgia.
 
@@ -203,6 +211,8 @@ def run_app():
         - [Fibromyalgia Awareness Article](https://www.cdc.gov/arthritis/basics/fibromyalgia.htm)
         - [How to Interpret CSI Scores](https://www.mdcalc.com/)
         - [Support Communities](https://www.fmaware.org/)
+
+        NOTE: This app is solely for detection of fibromyalgia and can be prone to errors. DO NOT solely rely on the results of this app, please confront your doctor if you have any symptoms. 
         """)
     
     st.image(IMAGE_ADDRESS, caption="Fibromyalgia Awareness", use_container_width=True)
