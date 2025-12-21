@@ -300,7 +300,7 @@ def run_app():
         SPS_total = st.slider("SPS Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score(0-100)")
         SPSa_total = st.slider("SPSa Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Affective(0-100)")
         SPSb_total = st.slider("SPSb Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Somatic(0-100)")
-        submit_button = st.form_submitbutton("Predict")
+        submit_button = st.form_submit_button("Predict")
     gender_feature = 0 if gender == "Male" else 1
     if submit_button in locals() and submit_button:
         with st.spinner("Analyzing..."):
