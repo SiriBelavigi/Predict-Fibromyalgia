@@ -302,7 +302,7 @@ def run_app():
         SPSb_total = st.slider("SPSb Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Somatic(0-100)")
         submit_button = st.form_submit_button("Predict")
     gender_feature = 0 if gender == "Male" else 1
-    if submit_button in locals() and submit_button:
+    if "submit_button" in locals() and submit_button:
         with st.spinner("Analyzing..."):
             features = np.array([["Age", "CSI_total", "SAT_total", "SPS_total", "SPSa_total", "SPSb_total"]])
             scaled_features = scaler.transform(features)
