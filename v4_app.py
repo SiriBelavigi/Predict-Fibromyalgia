@@ -302,13 +302,25 @@ def run_app():
         SPSb_total = st.slider("SPSb Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Somatic(0-100)")
         submit_button = st.form_submit_button("Predict")
     gender_feature = 0 if gender == "Male" else 1
-    if "submit_button" in locals() and submit_button:
-        with st.spinner("Analyzing..."):
-            features = np.array([["Age", "CSI_total", "SAT_total", "SPS_total", "SPSa_total", "SPSb_total"]])
+    if 'submit_button' in locals() and submit_button:
+        with st.spinner('Analyzing your information...'):
+            # Feature values input
+            features = np.array([[age, csi_total, sat_total, sps_total, spsa_total, spsb_total]])
+            
+            # Normalize the features except gender
             scaled_features = scaler.transform(features)
+            
+            # Combine the gender feature with the scaled features
             final_features = np.hstack([[[gender_feature]], scaled_features])
+            
+            # Make prediction
             model_predict = classification_model.predict(final_features)
             result = model_predict[0]
+            
+            # Display results
+            st.markdown("---")
+            st.subheader("🔍 Prediction Results")
+            
             if result == 1:
                 st.error("## 🚨 Fibromyalgia Detected")
                 st.write("""
@@ -322,13 +334,14 @@ def run_app():
                 Based on the provided information, the model does not detect signs of fibromyalgia.
                 However, if you're experiencing symptoms, please consult with a healthcare professional.
                 """)
-        st.markdown("---")
-        st.warning("""
-        **Disclaimer:** This tool is for informational purposes only and is not a substitute for 
-        professional medical advice, diagnosis, or treatment. Always seek the advice of your 
-        physician or other qualified health provider with any questions you may have regarding 
-        a medical condition.
-        """)
+            
+            # Disclaimer
+            st.markdown("---")
+            st.warning("""
+            **Disclaimer:** This tool is for informational purposes only and is not a substitute for 
+            professional medical advice, diagnosis, or treatment. Always seek the advice of your 
+            physician or other qualified health provider with any questions you may have regarding 
+            a medical condition.
+            """)
+
 run_app()
-    
-    
