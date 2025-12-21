@@ -295,11 +295,11 @@ def run_app():
         st.markdown("---")
         st.subheader("Assessment Scores")
         st.write("Enter your assessment scores (hover over ℹ️ in the sidebar for more information about each score)")
-        CSI_total = st.slider("CSI Total Score", min_value = 0, max_value = 100, value = 50, help = "Central Sensitization Inventory(0-100)")
-        SAT_total = st.slider("SAT Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Assessment Tool (0-100)")
-        SPS_total = st.slider("SPS Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score(0-100)")
-        SPSa_total = st.slider("SPSa Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Affective(0-100)")
-        SPSb_total = st.slider("SPSb Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Somatic(0-100)")
+        csi_total = st.slider("CSI Total Score", min_value = 0, max_value = 100, value = 50, help = "Central Sensitization Inventory(0-100)")
+        sat_total = st.slider("SAT Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Assessment Tool (0-100)")
+        sps_total = st.slider("SPS Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score(0-100)")
+        spsa_total = st.slider("SPSa Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Affective(0-100)")
+        spsb_total = st.slider("SPSb Total Score", min_value = 0, max_value = 100, value = 50, help = "Symptom Pattern Score - Somatic(0-100)")
         submit_button = st.form_submit_button("Predict")
     gender_feature = 0 if gender == "Male" else 1
     if 'submit_button' in locals() and submit_button:
