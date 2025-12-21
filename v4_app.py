@@ -303,25 +303,25 @@ def run_app():
         submit_button = st.form_submitbutton("Predict")
     gender_feature = 0 if gender == "Male" else 1
     if submit_button in locals() and submit_button:
-        with st.spinner("Analyzing...")
-        features = np.array([["Age", "CSI_total", "SAT_total", "SPS_total", "SPSa_total", "SPSb_total"]])
-        scaled_features = scaler.transform(features)
-        final_features = np.hstack([[[gender_feature]], scaled_features])
-        model_predict = classification_model.predict(final_features)
-        result = model_predict[0]
-        if result == 1:
-            st.error("## 🚨 Fibromyalgia Detected")
-            st.write("""
-            Based on the provided information, the model predicts a likelihood of fibromyalgia. 
-            Please consult with a healthcare professional for a comprehensive evaluation.
-            """)
-            show_community_resources()
-        else:
-            st.success("## ✅ No Fibromyalgia Detected")
-            st.write("""
-            Based on the provided information, the model does not detect signs of fibromyalgia.
-            However, if you're experiencing symptoms, please consult with a healthcare professional.
-            """)
+        with st.spinner("Analyzing..."):
+            features = np.array([["Age", "CSI_total", "SAT_total", "SPS_total", "SPSa_total", "SPSb_total"]])
+            scaled_features = scaler.transform(features)
+            final_features = np.hstack([[[gender_feature]], scaled_features])
+            model_predict = classification_model.predict(final_features)
+            result = model_predict[0]
+            if result == 1:
+                st.error("## 🚨 Fibromyalgia Detected")
+                st.write("""
+                Based on the provided information, the model predicts a likelihood of fibromyalgia. 
+                Please consult with a healthcare professional for a comprehensive evaluation.
+                """)
+                show_community_resources()
+            else:
+                st.success("## ✅ No Fibromyalgia Detected")
+                st.write("""
+                Based on the provided information, the model does not detect signs of fibromyalgia.
+                However, if you're experiencing symptoms, please consult with a healthcare professional.
+                """)
         st.markdown("---")
         st.warning("""
         **Disclaimer:** This tool is for informational purposes only and is not a substitute for 
